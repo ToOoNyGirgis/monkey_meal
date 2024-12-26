@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:meal_monkey/core/errors/failures.dart';
 import 'package:meal_monkey/core/utils/api_service.dart';
+import 'package:meal_monkey/core/utils/constatns.dart';
 import 'package:meal_monkey/core/utils/secure_local_network.dart';
 import 'package:meal_monkey/features/auth/data/models/user_data/user_model.dart';
 
@@ -21,8 +22,8 @@ class AuthRepoImpl implements AuthRepo{
     try {
       var data = await apiService.post(endPoint: 'register', data: body );
       var userModel = UserModel.fromJson(data);
-      SecureLocalStorage.saveToken(key: 'token', value: userModel.data!.token??'');
-      log(await SecureLocalStorage.getToken(key: 'token')??'');
+      SecureLocalStorage.saveToken(key: AppConstants.tokenKey, value: userModel.data!.token??'');
+      log(await SecureLocalStorage.getToken(key: AppConstants.tokenKey)??'');
       return right(userModel);
     }  catch (e) {
       if(e is DioException) {
@@ -38,8 +39,8 @@ class AuthRepoImpl implements AuthRepo{
     try {
       var data = await apiService.post(endPoint: 'login', data: body );
       var userModel = UserModel.fromJson(data);
-      SecureLocalStorage.saveToken(key: 'token', value: userModel.data!.token??'');
-      log(await SecureLocalStorage.getToken(key: 'token')??'');
+      SecureLocalStorage.saveToken(key: AppConstants.tokenKey, value: userModel.data!.token??'');
+      log(await SecureLocalStorage.getToken(key: AppConstants.tokenKey)??'');
       return right(userModel);
     }  catch (e) {
       if(e is DioException) {

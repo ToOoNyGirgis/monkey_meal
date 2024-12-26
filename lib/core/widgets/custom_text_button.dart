@@ -17,7 +17,7 @@ class CustomTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        // padding: const EdgeInsets.symmetric(vertical: 15.0), // Button padding
+        padding: const EdgeInsets.all( 5.0), // Button padding
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0), // Rounded corners
         ),

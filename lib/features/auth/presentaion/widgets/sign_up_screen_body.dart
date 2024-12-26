@@ -13,7 +13,7 @@ class SignUpScreenBody extends StatelessWidget {
   SignUpScreenBody({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
+  // final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
@@ -60,7 +60,7 @@ class SignUpScreenBody extends StatelessWidget {
         final isLoading = state is AuthLoading;
         return Form(
           key: _formKey,
-          autovalidateMode: autovalidateMode,
+          // autovalidateMode: autovalidateMode,
           child: SingleChildScrollView(
             child: Column(
               children: [
