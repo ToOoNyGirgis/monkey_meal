@@ -23,14 +23,17 @@ abstract class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return BlocProvider(
             create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
-            child:  const SignUpScreen(),
+            child: const SignUpScreen(),
           );
         },
       ),
       GoRoute(
         path: kLoginScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginScreen();
+          return BlocProvider(
+            create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+            child: const LoginScreen(),
+          );
         },
       ),
       GoRoute(

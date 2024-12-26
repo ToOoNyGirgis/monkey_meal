@@ -6,7 +6,7 @@ import 'package:meal_monkey/core/utils/font_styles.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.hintText, this.controller, this.validator, this.obscureText, this.enabled, this.autovalidateMode,
+    required this.hintText, this.controller, this.validator, this.obscureText, this.enabled, this.autovalidateMode, this.keyboardType,
   });
 
   final String hintText;
@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? obscureText;
   final bool? enabled;
   final AutovalidateMode? autovalidateMode;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
           validator: validator,
           obscureText: obscureText??false,
           enabled: enabled??true,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: keyboardType,
           autofocus: false,
           decoration: InputDecoration(
             hintText: hintText,

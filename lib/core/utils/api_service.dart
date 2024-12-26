@@ -19,6 +19,7 @@ class ApiService {
       options: Options(
       headers: {
         'Content-Type': 'application/json', // Optional: Ensure the server expects JSON
+        'lang':'en',
         },),
     );
     return response.data;
