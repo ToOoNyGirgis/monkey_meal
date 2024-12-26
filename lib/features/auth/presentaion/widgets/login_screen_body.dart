@@ -15,7 +15,7 @@ class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final AutovalidateMode autovalidateMode = AutovalidateMode.always;
+  final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -57,59 +57,61 @@ class LoginScreenBody extends StatelessWidget {
         return Form(
           autovalidateMode: autovalidateMode,
           key: _formKey,
-          child: SafeArea(
-            child: Column(
-              children: [
-                const Text(
-                  'Login',
-                  style: FontsStyles.regular30,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  'Add your details to login',
-                  style: FontsStyles.regular14
-                      .copyWith(color: AppColors.kBlackIconColor),
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                 LoginWithEmailPasswordSection(
-                  emailController: _emailController,
-                  passwordController: _passwordController,
-                   onPressed: () => _submitForm(context), isLoading: isLoading,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CustomTextButton(
-                  text: "Forgot your password?",
-                  textStyle: FontsStyles.regular14
-                      .copyWith(color: AppColors.kBlackIconColor),
-                  onPressed: (){} // Disable when loading
-                ),
-                const Spacer(),
-                const LoginWithSocialMediaSection(),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Don\'t have an Account?'),
-                    CustomTextButton(
-                        text: 'Sign Up',
-                        textStyle: FontsStyles.bold14
-                            .copyWith(color: AppColors.kPrimaryColor),
-                        onPressed: () {
-                          if (Navigator.canPop(context)) {
-                            context.pop();
-                          } else {
-                            context.push(AppRouter.kSignUpScreen);
-                          }
-                        }),
-                  ],
-                )
-              ],
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  const Text(
+                    'Login',
+                    style: FontsStyles.regular30,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'Add your details to login',
+                    style: FontsStyles.regular14
+                        .copyWith(color: AppColors.kBlackIconColor),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                   LoginWithEmailPasswordSection(
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                     onPressed: () => _submitForm(context), isLoading: isLoading,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextButton(
+                    text: "Forgot your password?",
+                    textStyle: FontsStyles.regular14
+                        .copyWith(color: AppColors.kBlackIconColor),
+                    onPressed: (){} // Disable when loading
+                  ),
+                  const Spacer(),
+                  const LoginWithSocialMediaSection(),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Don\'t have an Account?'),
+                      CustomTextButton(
+                          text: 'Sign Up',
+                          textStyle: FontsStyles.bold14
+                              .copyWith(color: AppColors.kPrimaryColor),
+                          onPressed: () {
+                            if (Navigator.canPop(context)) {
+                              context.pop();
+                            } else {
+                              context.push(AppRouter.kSignUpScreen);
+                            }
+                          }),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );

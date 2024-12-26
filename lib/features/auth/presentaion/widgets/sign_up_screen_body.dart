@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +13,7 @@ class SignUpScreenBody extends StatelessWidget {
   SignUpScreenBody({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final AutovalidateMode autovalidateMode = AutovalidateMode.always;
+  final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
@@ -47,7 +46,6 @@ class SignUpScreenBody extends StatelessWidget {
           );
           context.pushReplacement(AppRouter.kHomeScreen);}
          else{
-           print(state.user.message);
            ScaffoldMessenger.of(context).showSnackBar(
              SnackBar(content: Text('${state.user.message}')),
            );
@@ -85,11 +83,14 @@ class SignUpScreenBody extends StatelessWidget {
                   controller: _nameController,
                   hintText: 'Name',
                   enabled: !isLoading,
+                  keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Name is required';
                     }
-                    return null;
+                    else {
+                      return null;
+                    }
                   },
                 ),
                 const SizedBox(
@@ -99,6 +100,7 @@ class SignUpScreenBody extends StatelessWidget {
                   controller: _emailController,
                   hintText: 'Email',
                   enabled: !isLoading,
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Email is required';
@@ -114,6 +116,7 @@ class SignUpScreenBody extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: _mobileController,
+                  keyboardType: TextInputType.phone,
                   hintText: 'Mobile No',
                   enabled: !isLoading,
                   validator: (value) {
