@@ -8,8 +8,8 @@ import 'package:meal_monkey/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:meal_monkey/features/auth/presentaion/auth_screen.dart';
 import 'package:meal_monkey/features/auth/presentaion/login_screen.dart';
 import 'package:meal_monkey/features/auth/presentaion/manager/auth_cubit/auth_cubit.dart';
+import 'package:meal_monkey/features/auth/presentaion/manager/login_cubit/login_cubit.dart';
 import 'package:meal_monkey/features/auth/presentaion/sign_up_sceen.dart';
-import 'package:meal_monkey/features/forget_password/presentation/reset_password_screen.dart';
 import 'package:meal_monkey/features/home/presentation/home_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
 
@@ -37,7 +37,7 @@ abstract class AppRouter {
 
               // If there is a token, go to HomeScreen, otherwise go to AuthScreen
               if (snapshot.hasData && snapshot.data == true) {
-                return const ResetPasswordScreen();
+                return const HomeScreen();
               } else {
                 return const AuthScreen();
               }
@@ -58,7 +58,7 @@ abstract class AppRouter {
         path: kLoginScreen,
         builder: (BuildContext context, GoRouterState state) {
           return BlocProvider(
-            create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+            create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
             child: const LoginScreen(),
           );
         },

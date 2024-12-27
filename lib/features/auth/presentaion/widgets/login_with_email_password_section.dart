@@ -6,12 +6,14 @@ import 'package:meal_monkey/core/widgets/custom_text_form_field.dart';
 
 class LoginWithEmailPasswordSection extends StatelessWidget {
   const LoginWithEmailPasswordSection({
-    super.key, required this.emailController, required this.passwordController, required this.onPressed, required this.isLoading,
+    super.key, required this.emailController, required this.passwordController, required this.onPressed, required this.isLoading, this.validateEmail, this.validatePassword,
   });
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final VoidCallback onPressed;
   final bool isLoading;
+  final String? Function(String?)? validateEmail;
+  final String? Function(String?)? validatePassword;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,30 +22,14 @@ class LoginWithEmailPasswordSection extends StatelessWidget {
           controller: emailController,
           hintText: 'Your Email',
            keyboardType: TextInputType.emailAddress,
-           validator: (value) {
-             if (value == null || value.isEmpty) {
-               return 'Email is required';
-             }
-             if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-               return 'Enter a valid email';
-             }
-             return null;
-           },
+           validator: validateEmail,
         ),
         const SizedBox(height: 33,),
          CustomTextFormField(
            controller: passwordController,
           hintText: 'Password',
            obscureText: true,
-           validator: (value) {
-             if (value == null || value.isEmpty) {
-               return 'Password is required';
-             }
-             if (value.length < 6) {
-               return 'Password must be at least 6 characters';
-             }
-             return null;
-           },
+           validator: validatePassword,
         ),
         const SizedBox(height: 28,),
         CustomButton(

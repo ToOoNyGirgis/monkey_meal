@@ -50,6 +50,24 @@ class AuthRepoImpl implements AuthRepo{
     }
   }
 
+  @override
+  Future<Either<Failure, UserModel>> signInWithFacebook() {
+    // TODO: implement signInWithFacebook
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> signInWithGoogle() {
+    // TODO: implement signInWithGoogle
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> signInWithTwitter() {
+    // TODO: implement signInWithTwitter
+    throw UnimplementedError();
+  }
+
 
 }
 

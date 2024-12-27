@@ -7,4 +7,7 @@ abstract class AuthRepo
 {
   Future<Either<Failure,UserModel>> registerUser( Map<String , dynamic> body);
   Future<Either<Failure,UserModel>> loginUser( Map<String , dynamic> body);
+  Future<Either<Failure, UserModel>> signInWithGoogle();
+  Future<Either<Failure, UserModel>> signInWithFacebook();
+  Future<Either<Failure, UserModel>> signInWithTwitter();
 }

@@ -22,16 +22,4 @@ class AuthCubit extends Cubit<AuthState> {
       ),
     );
   }
-  Future<void> loginUser({required Map<String,dynamic> body}) async {
-    emit(AuthLoading());
-    var result = await authRepo.loginUser(body);
-    result.fold(
-          (failure) => emit(
-        AuthFailure(failure.errMessage),
-      ),
-          (user) => emit(
-        AuthSuccess(user),
-      ),
-    );
-  }
 }
