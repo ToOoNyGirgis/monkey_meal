@@ -6,6 +6,7 @@ import 'package:meal_monkey/features/auth/presentaion/widgets/login_screen_compo
 import 'package:meal_monkey/features/auth/presentaion/widgets/login_with_email_password_section.dart';
 import 'package:meal_monkey/features/auth/presentaion/widgets/login_with_social_media_section.dart';
 import 'package:meal_monkey/features/auth/view_model/login-view-model.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreenBody extends StatefulWidget {
   const LoginScreenBody({super.key});
@@ -15,24 +16,7 @@ class LoginScreenBody extends StatefulWidget {
 }
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
-  // final _formKey = GlobalKey<FormState>();
-  //
-  // final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
-  //
-  // final _emailController = TextEditingController();
-  //
-  // final _passwordController = TextEditingController();
-  //
-  // void _submitForm(BuildContext context) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     final body = {
-  //       'email': _emailController.text.trim(),
-  //       'password': _passwordController.text.trim(),
-  //     };
-  //
-  //     BlocProvider.of<LoginCubit>(context).loginUser(body: body);
-  //   }
-  // }
+
   late final LoginViewModel _viewModel;
 
   @override
@@ -58,7 +42,6 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
         }
       },
       builder: (context, state) {
-        // final isLoading = state is AuthLoading;
         final isLoading = state is LoginLoading;
         return _buildLoginForm(context, isLoading);
         // return Form(
@@ -126,35 +109,40 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
   }
 
   Widget _buildLoginForm(BuildContext context, bool isLoading) {
-    return Form(
-      key: _viewModel.formKey,
-      child: SafeArea(
-        child: Column(
-          children: [
-            const LoginHeader(),
-            const SizedBox(height: 32),
-            LoginWithEmailPasswordSection(
-              emailController: _viewModel.emailController,
-              passwordController: _viewModel.passwordController,
-              onPressed: () => _viewModel.handleEmailPasswordLogin(context),
-              isLoading: isLoading,
-              validateEmail: _viewModel.validateEmail,
-              validatePassword: _viewModel.validatePassword,
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      child: Form(
+        key: _viewModel.formKey,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const LoginHeader(),
+                const SizedBox(height: 32),
+                LoginWithEmailPasswordSection(
+                  emailController: _viewModel.emailController,
+                  passwordController: _viewModel.passwordController,
+                  onPressed: () => _viewModel.handleEmailPasswordLogin(context),
+                  isLoading: isLoading,
+                  validateEmail: _viewModel.validateEmail,
+                  validatePassword: _viewModel.validatePassword,
+                ),
+                const SizedBox(height: 15),
+                ForgotPasswordButton(
+                  onPressed: isLoading ? null : () => _viewModel.handleForgotPassword(context),
+                ),
+                const SizedBox(height: 20),
+                const LoginWithSocialMediaSection(
+                  // onGooglePressed: isLoading ? null : () => _viewModel.handleGoogleLogin(context),
+                  // onFacebookPressed: isLoading ? null : () => _viewModel.handleFacebookLogin(context),
+                ),
+                const SizedBox(height: 20),
+                SignUpPrompt(
+                  onPressed: isLoading ? null : () => _viewModel.handleSignUpNavigation(context),
+                ),
+              ],
             ),
-            const SizedBox(height: 15),
-            ForgotPasswordButton(
-              onPressed: isLoading ? null : () => _viewModel.handleForgotPassword(context),
-            ),
-            const Spacer(),
-            const LoginWithSocialMediaSection(
-              // onGooglePressed: isLoading ? null : () => _viewModel.handleGoogleLogin(context),
-              // onFacebookPressed: isLoading ? null : () => _viewModel.handleFacebookLogin(context),
-            ),
-            const Spacer(),
-            SignUpPrompt(
-              onPressed: isLoading ? null : () => _viewModel.handleSignUpNavigation(context),
-            ),
-          ],
+          ),
         ),
       ),
     );

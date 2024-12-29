@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
-import 'package:meal_monkey/core/utils/app_router.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 import 'package:meal_monkey/core/widgets/custom_button.dart';
-import 'package:meal_monkey/core/widgets/custom_text_button.dart';
-import 'package:meal_monkey/core/widgets/custom_text_form_field.dart';
 import 'package:meal_monkey/features/auth/presentaion/manager/auth_cubit/auth_cubit.dart';
+import 'package:meal_monkey/features/auth/presentaion/widgets/enter_sign_up_data.dart';
+import 'package:meal_monkey/features/auth/presentaion/widgets/sign_up_component.dart';
+import 'package:meal_monkey/features/auth/view_model/sign_up_view_model.dart';
 
-class SignUpScreenBody extends StatelessWidget {
-  SignUpScreenBody({super.key});
+class SignUpScreenBody extends StatefulWidget {
+  const SignUpScreenBody({super.key});
 
-  final _formKey = GlobalKey<FormState>();
-  // final AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _mobileController = TextEditingController();
-  // final _addressController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  @override
+  State<SignUpScreenBody> createState() => _SignUpScreenBodyState();
+}
 
-  void _submitForm(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      final body = {
-        'name': _nameController.text.trim(),
-        'email': _emailController.text.trim(),
-        'phone': _mobileController.text.trim(),
-        // 'address': _addressController.text.trim(),
-        'password': _passwordController.text.trim(),
-      };
+class _SignUpScreenBodyState extends State<SignUpScreenBody> {
+  late final SignUpViewModel _viewModel;
 
-      BlocProvider.of<AuthCubit>(context).registerUser(body: body);
-    }
+  @override
+  void initState() {
+    _viewModel = SignUpViewModel();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 
   @override
@@ -40,186 +35,44 @@ class SignUpScreenBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-         if(state.user.data!=null){
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Registration Successful!')),
-          );
-          context.pushReplacement(AppRouter.kHomeScreen);}
-         else{
-           ScaffoldMessenger.of(context).showSnackBar(
-             SnackBar(content: Text('${state.user.message}')),
-           );
-         }
+          _viewModel.handleSignUpSuccess(context, state.user);
         } else if (state is AuthFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errMsg)),
-          );
+          _viewModel.handleSignUpError(context, state.errMsg);
         }
       },
       builder: (context, state) {
         final isLoading = state is AuthLoading;
-        return Form(
-          key: _formKey,
-          // autovalidateMode: autovalidateMode,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text(
-                  'Sign Up',
-                  style: FontsStyles.regular30,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  'Add your details to sign up',
-                  style: FontsStyles.regular14
-                      .copyWith(color: AppColors.kBlackIconColor),
-                ),
-                const SizedBox(
-                  height: 37,
-                ),
-                CustomTextFormField(
-                  controller: _nameController,
-                  hintText: 'Name',
-                  enabled: !isLoading,
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Name is required';
-                    }
-                    else {
-                      return null;
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomTextFormField(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  enabled: !isLoading,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
-                    }
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                      return 'Enter a valid email';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomTextFormField(
-                  controller: _mobileController,
-                  keyboardType: TextInputType.phone,
-                  hintText: 'Mobile No',
-                  enabled: !isLoading,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Mobile number is required';
-                    }
-                    if (!RegExp(r'^\d{6,15}$').hasMatch(value)) {
-                      return 'Enter a valid mobile number';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomTextFormField(
-                  // controller: _addressController,
-                  hintText: 'Address',
-                  enabled: !isLoading,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Address is required';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomTextFormField(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  enabled: !isLoading,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomTextFormField(
-                  controller: _confirmPasswordController,
-                  hintText: 'Confirm Password',
-                  enabled: !isLoading,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Confirm Password is required';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                CustomButton(
-                  text: isLoading ? 'Loading...' : 'Sign Up',
-                  textStyle: FontsStyles.regular16.copyWith(color: Colors.white),
-                  buttonColor: AppColors.kPrimaryColor,
-                  onPressed: isLoading ? null : () => _submitForm(context),
-                ),
-                // const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already have an Account?'),
-                    CustomTextButton(
-                        text: 'Login',
-                        textStyle: FontsStyles.bold14
-                            .copyWith(color: AppColors.kPrimaryColor),
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                        if (Navigator.canPop(context)) {
-                          context.pop();
-                        } else {
-                          context.push(AppRouter.kLoginScreen);
-                        }
-                      },),
-                  ],
-                ),
-                if (isLoading)
-                  Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
+        return _buildSignUpForm(isLoading, context);
       },
     );
   }
+
+  Form _buildSignUpForm(bool isLoading, BuildContext context) {
+    return Form(
+        key: _viewModel.formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SignUpHeader(),
+              const SizedBox(
+                height: 37,
+              ),
+              EnterSignUpData(viewModel: _viewModel, isLoading: isLoading),
+              const SizedBox(
+                height: 28,
+              ),
+              CustomButton(
+                text: isLoading ? 'Loading...' : 'Sign Up',
+                textStyle:
+                    FontsStyles.regular16.copyWith(color: Colors.white),
+                buttonColor: AppColors.kPrimaryColor,
+                onPressed: isLoading ? null : () => _viewModel.handleSignUpWithEmailPassword(context),
+              ),
+              AlreadyHaveAccount(isLoading: isLoading),
+            ],
+          ),
+        ),
+      );
+  }
 }
+

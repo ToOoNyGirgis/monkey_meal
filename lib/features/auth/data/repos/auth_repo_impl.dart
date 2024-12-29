@@ -22,13 +22,15 @@ class AuthRepoImpl implements AuthRepo{
     try {
       var data = await apiService.post(endPoint: 'register', data: body );
       var userModel = UserModel.fromJson(data);
-      SecureLocalStorage.saveToken(key: AppConstants.tokenKey, value: userModel.data!.token??'');
+      SecureLocalStorage.saveToken(key: AppConstants.tokenKey, value: userModel.data?.token??'');
       log(await SecureLocalStorage.getToken(key: AppConstants.tokenKey)??'');
       return right(userModel);
     }  catch (e) {
       if(e is DioException) {
+        log('server failure');
         return left(ServerFailure.fromDioErrors(e));
       }
+      log('exception failure');
       return left(ServerFailure(e.toString()));
     }
 
