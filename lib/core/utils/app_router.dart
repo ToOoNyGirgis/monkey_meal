@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_monkey/core/utils/constatns.dart';
-import 'package:meal_monkey/core/utils/secure_local_network.dart';
+import 'package:meal_monkey/core/utils/functions/check_local_data.dart';
 import 'package:meal_monkey/core/utils/service_locator.dart';
 import 'package:meal_monkey/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:meal_monkey/features/auth/presentaion/auth_screen.dart';
@@ -14,23 +13,46 @@ import 'package:meal_monkey/features/forget_password/data/repos/forget_password_
 import 'package:meal_monkey/features/forget_password/presentation/manager/forget_password_cubit.dart';
 import 'package:meal_monkey/features/forget_password/presentation/reset_password_screen.dart';
 import 'package:meal_monkey/features/home/presentation/home_screen.dart';
+import 'package:meal_monkey/features/onBoarding/presentation/manager/on_boarding_cubit.dart';
+import 'package:meal_monkey/features/onBoarding/presentation/on_boarding_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation: kOnBoardingScreen,
     routes: <RouteBase>[
-      // GoRoute(
-      //   path: '/',
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const AuthScreen();
-      //   },
-      // ),
+      // OnBoardingScreen
       GoRoute(
-        path: '/',
+        path: kOnBoardingScreen,
         builder: (BuildContext context, GoRouterState state) {
           return FutureBuilder(
-            future: _checkToken(),
+              future: checkOnBoarding(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SplashScreen();
+                }
+                // If there is a token, go to HomeScreen, otherwise go to AuthScreen
+                if (snapshot.hasData && snapshot.data == true) {
+                  return BlocProvider(
+                    create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
+                    child: const AuthScreen(),
+                  );
+                } else {
+                  return BlocProvider(
+                    create: (context) => OnboardingCubit(),
+                    child: const OnBoardingScreen(),
+                  );
+                }
+              }
+          );
+        },
+      ),
+      // AuthScreen
+      GoRoute(
+        path: kAuthScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return FutureBuilder(
+            future: checkToken(),
             builder: (context, snapshot) {
               // While checking the token, you can show a loading indicator
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,6 +70,7 @@ abstract class AppRouter {
           );
         },
       ),
+      // SignUpScreen
       GoRoute(
         path: kSignUpScreen,
         builder: (BuildContext context, GoRouterState state) {
@@ -57,6 +80,7 @@ abstract class AppRouter {
           );
         },
       ),
+      // ResetPasswordScreen
       GoRoute(
         path: kResetPasswordScreen,
         builder: (BuildContext context, GoRouterState state) {
@@ -66,6 +90,7 @@ abstract class AppRouter {
           );
         },
       ),
+      // LoginScreen
       GoRoute(
         path: kLoginScreen,
         builder: (BuildContext context, GoRouterState state) {
@@ -75,6 +100,7 @@ abstract class AppRouter {
           );
         },
       ),
+      // HomeScreen
       GoRoute(
         path: kHomeScreen,
         builder: (BuildContext context, GoRouterState state) {
@@ -85,14 +111,13 @@ abstract class AppRouter {
   );
 
   static const String kHomeScreen = '/homeScreen';
+  static const String kOnBoardingScreen = '/onBoardingScreen';
   static const String kLoginScreen = '/loginScreen';
   static const String kSignUpScreen = '/signUpScreen';
+  static const String kAuthScreen = '/AuthScreen';
   static const String kSearchScreen = '/searchScreen';
   static const String kBookDetailsScreen = '/bookDetailsScreen';
   static const String kResetPasswordScreen = '/resetPasswordScreen';
 
-  static Future<bool> _checkToken() async {
-    String? token = await SecureLocalStorage.getToken(key: AppConstants.tokenKey);
-    return token != null && token!='';
-  }
+
 }
