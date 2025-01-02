@@ -64,7 +64,7 @@ class LoginViewModel {
   }
 
   void handleForgotPassword(BuildContext context) {
-    //TODO Implement forgot password navigation/logic
+    context.push(AppRouter.kResetPasswordScreen);
   }
 
   void handleLoginSuccess(BuildContext context, UserModel user) {

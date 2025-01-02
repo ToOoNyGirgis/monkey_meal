@@ -10,6 +10,9 @@ import 'package:meal_monkey/features/auth/presentaion/login_screen.dart';
 import 'package:meal_monkey/features/auth/presentaion/manager/auth_cubit/auth_cubit.dart';
 import 'package:meal_monkey/features/auth/presentaion/manager/login_cubit/login_cubit.dart';
 import 'package:meal_monkey/features/auth/presentaion/sign_up_sceen.dart';
+import 'package:meal_monkey/features/forget_password/data/repos/forget_password_repo_impl.dart';
+import 'package:meal_monkey/features/forget_password/presentation/manager/forget_password_cubit.dart';
+import 'package:meal_monkey/features/forget_password/presentation/reset_password_screen.dart';
 import 'package:meal_monkey/features/home/presentation/home_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
 
@@ -55,6 +58,15 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
+        path: kResetPasswordScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return BlocProvider(
+            create: (context) => ForgetPasswordCubit(getIt.get<ForgetPasswordRepoImpl>()),
+            child: const ResetPasswordScreen(),
+          );
+        },
+      ),
+      GoRoute(
         path: kLoginScreen,
         builder: (BuildContext context, GoRouterState state) {
           return BlocProvider(
@@ -77,6 +89,7 @@ abstract class AppRouter {
   static const String kSignUpScreen = '/signUpScreen';
   static const String kSearchScreen = '/searchScreen';
   static const String kBookDetailsScreen = '/bookDetailsScreen';
+  static const String kResetPasswordScreen = '/resetPasswordScreen';
 
   static Future<bool> _checkToken() async {
     String? token = await SecureLocalStorage.getToken(key: AppConstants.tokenKey);
