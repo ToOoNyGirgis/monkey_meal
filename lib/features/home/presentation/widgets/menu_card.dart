@@ -17,8 +17,8 @@ class MenuCard extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 90,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(10),
@@ -27,9 +27,9 @@ class MenuCard extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey,
+                  color: Colors.black.withValues(alpha: 0.2),
                   blurRadius: 10,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
