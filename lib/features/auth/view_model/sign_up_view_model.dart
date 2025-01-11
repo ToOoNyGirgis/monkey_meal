@@ -94,7 +94,7 @@ class SignUpViewModel{
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Registration Successful!')),
       );
-      context.pushReplacement(AppRouter.kHomeScreen);
+      context.pushReplacement(AppRouter.kMainScreen);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${user.message}')),

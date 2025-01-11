@@ -10,12 +10,17 @@ class SplashScreen extends StatelessWidget {
     return  Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SvgPicture.asset(
-            AppAssets.logo,
-            semanticsLabel: 'app logo',
-            fit: BoxFit.fill,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                width: 200,
+                AppAssets.logo,
+                semanticsLabel: 'app logo',
+                fit: BoxFit.fill,
+              ),
+            ],
           ),
         ],
       ),

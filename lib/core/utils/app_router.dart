@@ -12,7 +12,7 @@ import 'package:meal_monkey/features/auth/presentaion/sign_up_sceen.dart';
 import 'package:meal_monkey/features/forget_password/data/repos/forget_password_repo_impl.dart';
 import 'package:meal_monkey/features/forget_password/presentation/manager/forget_password_cubit.dart';
 import 'package:meal_monkey/features/forget_password/presentation/reset_password_screen.dart';
-import 'package:meal_monkey/features/home/presentation/home_screen.dart';
+import 'package:meal_monkey/features/home/presentation/main_screen.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/manager/on_boarding_cubit.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/on_boarding_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
@@ -33,10 +33,7 @@ abstract class AppRouter {
                 }
                 // If there is a token, go to HomeScreen, otherwise go to AuthScreen
                 if (snapshot.hasData && snapshot.data == true) {
-                  return BlocProvider(
-                    create: (context) => AuthCubit(getIt.get<AuthRepoImpl>()),
-                    child: const AuthScreen(),
-                  );
+                  return tokenCheck();
                 } else {
                   return BlocProvider(
                     create: (context) => OnboardingCubit(),
@@ -51,23 +48,7 @@ abstract class AppRouter {
       GoRoute(
         path: kAuthScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return FutureBuilder(
-            future: checkToken(),
-            builder: (context, snapshot) {
-              // While checking the token, you can show a loading indicator
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                // Future.delayed(AppConstants.transitionDuration,() => const SplashScreen(),);
-                return const SplashScreen();
-              }
-
-              // If there is a token, go to HomeScreen, otherwise go to AuthScreen
-              if (snapshot.hasData && snapshot.data == true) {
-                return const HomeScreen();
-              } else {
-                return const AuthScreen();
-              }
-            },
-          );
+          return tokenCheck();
         },
       ),
       // SignUpScreen
@@ -102,15 +83,17 @@ abstract class AppRouter {
       ),
       // HomeScreen
       GoRoute(
-        path: kHomeScreen,
+        path: kMainScreen,
         builder: (BuildContext context, GoRouterState state) {
-          return const HomeScreen();
+          return const MainScreen();
         },
       ),
     ],
   );
 
-  static const String kHomeScreen = '/homeScreen';
+
+
+  static const String kMainScreen = '/mainScreen';
   static const String kOnBoardingScreen = '/onBoardingScreen';
   static const String kLoginScreen = '/loginScreen';
   static const String kSignUpScreen = '/signUpScreen';
@@ -119,5 +102,23 @@ abstract class AppRouter {
   static const String kBookDetailsScreen = '/bookDetailsScreen';
   static const String kResetPasswordScreen = '/resetPasswordScreen';
 
+  static FutureBuilder<bool> tokenCheck() {
+    return FutureBuilder(
+      future: checkToken(),
+      builder: (context, snapshot) {
+        // While checking the token, you can show a loading indicator
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Future.delayed(Duration(seconds: 2),() => const SplashScreen(),);
+          return const SplashScreen();
+        }
 
+        // If there is a token, go to HomeScreen, otherwise go to AuthScreen
+        if (snapshot.hasData && snapshot.data == true) {
+          return const MainScreen();
+        } else {
+          return const AuthScreen();
+        }
+      },
+    );
+  }
 }

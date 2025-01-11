@@ -72,7 +72,7 @@ class LoginViewModel {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login Successful!')),
       );
-      context.pushReplacement(AppRouter.kHomeScreen);
+      context.pushReplacement(AppRouter.kMainScreen);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${user.message}')),
