@@ -1,21 +1,21 @@
 class CategoriesModel {
   final bool status;
   final dynamic message;
-  final Data data;
+  final BodyModel body;
 
-  CategoriesModel({required this.status, this.message, required this.data});
+  CategoriesModel({required this.status, this.message, required this.body});
 
   factory CategoriesModel.fromJson(Map<String, dynamic> json) {
    return CategoriesModel(
       status: json['status'],
       message: json['message'],
-      data: Data.fromJson(json['data']),
+      body: BodyModel.fromJson(json['data']),
     );
 
   }
 }
 
-class Data {
+class BodyModel {
   final int currentPage;
   final List<CategoriesData> data;
   final String firstPageUrl;
@@ -29,7 +29,7 @@ class Data {
   final int to;
   final int total;
 
-  Data(
+  BodyModel(
       {required this.currentPage,
       required this.data,
       required this.firstPageUrl,
@@ -43,7 +43,7 @@ class Data {
       required this.to,
       required this.total});
 
- factory Data.fromJson(Map<String, dynamic> json) {
+ factory BodyModel.fromJson(Map<String, dynamic> json) {
 
    // if (json['data'] != null) {
    //   data = <CategoriesData>[];
@@ -51,7 +51,7 @@ class Data {
    //     data.add(new CategoriesData.fromJson(v));
    //   });
    // }
-   return Data(
+   return BodyModel(
       currentPage: json['current_page'],
       data: (json['data'] as List).map((e) => CategoriesData.fromJson(e)).toList(),
       firstPageUrl: json['first_page_url'],

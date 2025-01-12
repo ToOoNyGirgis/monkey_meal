@@ -7,7 +7,16 @@ class ApiService {
   ApiService(this._dio);
 
   Future<Map<String, dynamic>> get({required String endPoint}) async {
-    var response = await _dio.get("$_baseUrl$endPoint");
+    var response = await _dio.get(
+      "$_baseUrl$endPoint",
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          // Optional: Ensure the server expects JSON
+          'lang': 'en',
+        },
+      ),
+    );
     return response.data;
   }
 
@@ -17,10 +26,12 @@ class ApiService {
       "$_baseUrl$endPoint",
       data: data,
       options: Options(
-      headers: {
-        'Content-Type': 'application/json', // Optional: Ensure the server expects JSON
-        'lang':'en',
-        },),
+        headers: {
+          'Content-Type': 'application/json',
+          // Optional: Ensure the server expects JSON
+          'lang': 'en',
+        },
+      ),
     );
     return response.data;
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
+import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 
-class MenuCard extends StatelessWidget {
-  const MenuCard({
-    super.key,
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
+    super.key,  this.categoriesModel, required this.index,
   });
-
+  final CategoriesModel? categoriesModel;
+  final int index ;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -39,9 +41,9 @@ class MenuCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Food',
-                    style: FontsStyles.bold22,
+                   Text(
+                    categoriesModel!.body.data[index].name,
+                    style: FontsStyles.bold18,
                   ),
                   Text(
                     '120 Items',

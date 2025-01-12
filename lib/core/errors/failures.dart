@@ -31,9 +31,7 @@ class ServerFailure extends Failure{
           return ServerFailure('No Internet Connection');
         }
         return ServerFailure('UnExpected error, Please try again again.');
-      default: return ServerFailure('Oops There was an Error, Please try again');
-
-    }
+      }
   }
 
   factory ServerFailure.badResponse(int? statusCode , dynamic response){

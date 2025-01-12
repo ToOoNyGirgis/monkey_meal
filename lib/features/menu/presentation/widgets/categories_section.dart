@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:meal_monkey/core/utils/app_colors.dart';
+import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 import 'package:meal_monkey/features/menu/presentation/widgets/menu_card.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({
-    super.key,
+    super.key,  required this.categoriesModel,
   });
-
+  final CategoriesModel categoriesModel;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        alignment: Alignment.centerLeft ,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.55,
-            width: 100,
-            decoration: const BoxDecoration(
-              color: AppColors.kPrimaryColor,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-          ),
-          const Column(
-            children: [
-              MenuCard(),
-              SizedBox(height: 24),
-              MenuCard(),
-              SizedBox(height: 24),
-              MenuCard(),
-              SizedBox(height: 24),
-              MenuCard(),
-            ],
-          ),
-        ]
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.55,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        itemCount: 5,
+        separatorBuilder: (context, index) => const SizedBox(height: 24),
+        itemBuilder: (context, index) => CategoryCard(
+          categoriesModel: categoriesModel,
+          index: index,
+        ),
+
+      ),
     );
   }
 }

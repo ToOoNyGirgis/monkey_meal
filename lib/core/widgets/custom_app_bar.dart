@@ -13,20 +13,23 @@ class CustomAppBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: AppConstants.defaultPadding32),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: FontsStyles.regular25,
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart,
-                size: 22,
-              ))
-        ],
+      child: SizedBox(
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: FontsStyles.regular25,
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 22,
+                ))
+          ],
+        ),
       ),
     );
   }

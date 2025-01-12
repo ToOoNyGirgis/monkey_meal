@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
+import 'package:meal_monkey/core/utils/service_locator.dart';
 import 'package:meal_monkey/features/home/presentation/home_screen.dart';
+import 'package:meal_monkey/features/menu/data/repos/menu_repo_impl.dart';
+import 'package:meal_monkey/features/menu/manager/categories_cubit/categories_cubit.dart';
 import 'package:meal_monkey/features/menu/presentation/menu_screen.dart';
 import 'package:meal_monkey/features/more/presentation/more_screen.dart';
 import 'package:meal_monkey/features/offers/presentation/offers_screen.dart';
@@ -16,12 +20,15 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    MenuScreen(),
-    OffersScreen(),
-    HomeScreen(),
-    ProfileScreen(),
-    MoreScreen(),
+  static  final List<Widget> _widgetOptions = <Widget>[
+    BlocProvider(
+      create: (context) => CategoriesCubit(getIt.get<MenuRepoImpl>())..getCategories(),
+      child: const MenuScreen(),
+    ),
+    const OffersScreen(),
+    const HomeScreen(),
+    const ProfileScreen(),
+    const MoreScreen(),
   ];
 
   @override
@@ -62,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
                 activeColor: AppColors.kPrimaryColor,
                 // iconSize: 24,
                 tabBackgroundColor:
-                    AppColors.kPrimaryColor.withValues(alpha: 0.1),
+                AppColors.kPrimaryColor.withValues(alpha: 0.1),
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 tabs: const [
                   GButton(

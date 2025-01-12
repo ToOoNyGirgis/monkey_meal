@@ -81,7 +81,7 @@ abstract class AppRouter {
           );
         },
       ),
-      // HomeScreen
+      // MainScreen
       GoRoute(
         path: kMainScreen,
         builder: (BuildContext context, GoRouterState state) {
