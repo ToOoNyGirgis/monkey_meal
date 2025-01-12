@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:meal_monkey/core/utils/constatns.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 
-class MenuAppBar extends StatelessWidget {
-  const MenuAppBar({
-    super.key,
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
+    super.key, required this.title,
   });
 
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,8 +16,8 @@ class MenuAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Menu',
+          Text(
+            title,
             style: FontsStyles.regular25,
           ),
           IconButton(

@@ -33,19 +33,19 @@ class MenuCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 70),
+            child:  Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 70),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Food',
-                    style: FontsStyles.regular25,
+                    style: FontsStyles.bold22,
                   ),
                   Text(
                     '120 Items',
-                    style: FontsStyles.regular12,
+                    style: FontsStyles.regular11.copyWith(color: Colors.grey),
                   ),
                 ],
               ),

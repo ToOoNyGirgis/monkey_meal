@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meal_monkey/features/home/presentation/widgets/categories_section.dart';
-import 'package:meal_monkey/features/home/presentation/widgets/menu_app_bar.dart';
-import 'package:meal_monkey/features/home/presentation/widgets/search_bar.dart';
+import 'package:meal_monkey/features/menu/presentation/widgets/categories_section.dart';
+import 'package:meal_monkey/core/widgets/custom_app_bar.dart';
+import 'package:meal_monkey/core/widgets/custom_search_bar.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -12,7 +12,7 @@ class MenuScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            MenuAppBar(),
+            CustomAppBar(title: 'Menu',),
             CustomSearchBar(),
             SizedBox(height: 40),
             CategoriesSection(),

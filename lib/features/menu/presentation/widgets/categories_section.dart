@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
-import 'package:meal_monkey/features/home/presentation/widgets/menu_card.dart';
+import 'package:meal_monkey/features/menu/presentation/widgets/menu_card.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({

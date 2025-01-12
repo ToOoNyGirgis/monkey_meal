@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
 import 'package:meal_monkey/features/home/presentation/home_screen.dart';
-import 'package:meal_monkey/features/home/presentation/menu_screen.dart';
-import 'package:meal_monkey/features/home/presentation/more_screen.dart';
-import 'package:meal_monkey/features/home/presentation/offers_screen.dart';
-import 'package:meal_monkey/features/home/presentation/profile_screen.dart';
+import 'package:meal_monkey/features/menu/presentation/menu_screen.dart';
+import 'package:meal_monkey/features/more/presentation/more_screen.dart';
+import 'package:meal_monkey/features/offers/presentation/offers_screen.dart';
+import 'package:meal_monkey/features/profile/presentation/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -70,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                     text: 'Menu',
                   ),
                   GButton(
-                    icon: Icons.local_offer,
+                    icon: Icons.shopping_bag,
                     text: 'Offers',
                   ),
                   GButton(

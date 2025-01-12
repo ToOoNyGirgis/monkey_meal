@@ -24,7 +24,7 @@ class CustomSearchBar extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: 8.0),
-              child: Text('Search food'),
+              child: Text('Search food', style: TextStyle(color: Colors.grey)),
             )
           ],
         ),
