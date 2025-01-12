@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:meal_monkey/core/errors/failures.dart';
-import 'package:meal_monkey/core/utils/api_service.dart';
+import 'package:meal_monkey/core/services/api_service.dart';
 import 'package:meal_monkey/core/utils/constatns.dart';
 import 'package:meal_monkey/core/utils/secure_local_network.dart';
 import 'package:meal_monkey/features/auth/data/models/user_data/user_model.dart';

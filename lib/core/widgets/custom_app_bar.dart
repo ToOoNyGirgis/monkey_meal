@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_monkey/core/utils/constatns.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 
@@ -18,9 +19,19 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: FontsStyles.regular25,
+            Row(
+              children: [
+                Visibility(
+                  visible: context.canPop(),
+                  child: IconButton(onPressed: () {
+                    Navigator.pop(context);
+                  } , icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                ),
+                Text(
+                  title,
+                  style: FontsStyles.regular25,
+                ),
+              ],
             ),
             IconButton(
                 onPressed: () {},

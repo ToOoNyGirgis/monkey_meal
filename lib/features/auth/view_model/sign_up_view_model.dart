@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_monkey/core/utils/app_router.dart';
+import 'package:meal_monkey/core/navigation/app_router.dart';
 import 'package:meal_monkey/features/auth/data/models/user_data/user_model.dart';
 import 'package:meal_monkey/features/auth/presentaion/manager/auth_cubit/auth_cubit.dart';
 

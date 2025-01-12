@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:meal_monkey/core/errors/failures.dart';
-import 'package:meal_monkey/core/utils/api_service.dart';
+import 'package:meal_monkey/core/services/api_service.dart';
 import 'package:meal_monkey/features/forget_password/data/repos/forget_password_repo.dart';
 
 class ForgetPasswordRepoImpl extends ForgetPasswordRepo {

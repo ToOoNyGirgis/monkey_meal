@@ -13,13 +13,17 @@ import 'package:meal_monkey/features/forget_password/data/repos/forget_password_
 import 'package:meal_monkey/features/forget_password/presentation/manager/forget_password_cubit.dart';
 import 'package:meal_monkey/features/forget_password/presentation/reset_password_screen.dart';
 import 'package:meal_monkey/features/home/presentation/main_screen.dart';
+import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/manager/on_boarding_cubit.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/on_boarding_screen.dart';
+import 'package:meal_monkey/features/products/data/repos/product_repo_impl.dart';
+import 'package:meal_monkey/features/products/manager/category_products_cubit/category_products_cubit.dart';
+import 'package:meal_monkey/features/products/presentation/category_products_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: kOnBoardingScreen,
+    initialLocation: kMainScreen,
     routes: <RouteBase>[
       // OnBoardingScreen
       GoRoute(
@@ -66,7 +70,8 @@ abstract class AppRouter {
         path: kResetPasswordScreen,
         builder: (BuildContext context, GoRouterState state) {
           return BlocProvider(
-            create: (context) => ForgetPasswordCubit(getIt.get<ForgetPasswordRepoImpl>()),
+            create: (context) =>
+                ForgetPasswordCubit(getIt.get<ForgetPasswordRepoImpl>()),
             child: const ResetPasswordScreen(),
           );
         },
@@ -88,12 +93,24 @@ abstract class AppRouter {
           return const MainScreen();
         },
       ),
+      // CategoryProductsScreen
+      GoRoute(
+        path: kCategoryProductsScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return BlocProvider(
+            create: (context) => CategoryProductsCubit(getIt.get<ProductRepoImpl>()),
+            child: CategoryProductsScreen(
+              category: state.extra as CategoriesData,
+            ),
+          );
+        },
+      ),
     ],
   );
 
 
-
   static const String kMainScreen = '/mainScreen';
+  static const String kCategoryProductsScreen = '/categoryProductsScreen';
   static const String kOnBoardingScreen = '/onBoardingScreen';
   static const String kLoginScreen = '/loginScreen';
   static const String kSignUpScreen = '/signUpScreen';

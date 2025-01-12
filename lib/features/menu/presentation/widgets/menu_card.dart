@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meal_monkey/core/navigation/app_router.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
@@ -12,9 +14,10 @@ class CategoryCard extends StatelessWidget {
   final int index ;
   @override
   Widget build(BuildContext context) {
+        print('${categoriesModel!.body.data[index]}');
     return GestureDetector(
       onTap: () {
-
+    context.push(AppRouter.kCategoryProductsScreen,extra: categoriesModel!.body.data[index]);
       },
       child: Stack(
         alignment: Alignment.center,

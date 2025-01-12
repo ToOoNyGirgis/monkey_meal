@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meal_monkey/core/utils/app_router.dart';
+import 'package:meal_monkey/core/navigation/app_router.dart';
 import 'package:meal_monkey/core/utils/service_locator.dart';
 
 void main() {

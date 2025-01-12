@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
 
 SecureLocalStorage.deleteToken(key: AppConstants.tokenKey);
 SharedPreferencesMethods.clear();
-        }, child: Text('cleat data'))
+        }, child: const Text('cleat data'))
       ],
     );
   }

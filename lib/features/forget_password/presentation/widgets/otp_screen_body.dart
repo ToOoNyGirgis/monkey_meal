@@ -52,7 +52,7 @@ class OTPScreenBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text('Don\'t retrive?',style: FontsStyles.regular14,),
+          const Text('Don\'t retrieve?',style: FontsStyles.regular14,),
           CustomTextButton(onPressed: () {
             
           },text:'Click here', textStyle: FontsStyles.bold14.copyWith(color: AppColors.kPrimaryColor))

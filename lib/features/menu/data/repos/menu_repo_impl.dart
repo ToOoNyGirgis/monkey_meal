@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:meal_monkey/core/errors/failures.dart';
-import 'package:meal_monkey/core/utils/api_service.dart';
+import 'package:meal_monkey/core/services/api_service.dart';
 import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 import 'package:meal_monkey/features/menu/data/repos/menu_repo.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
-import 'package:meal_monkey/core/utils/app_router.dart';
+import 'package:meal_monkey/core/navigation/app_router.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 import 'package:meal_monkey/core/widgets/custom_text_button.dart';
 

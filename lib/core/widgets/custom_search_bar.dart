@@ -8,6 +8,7 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// TODO: Implement CustomSearchBar
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: AppConstants.defaultPadding32),
@@ -24,7 +25,7 @@ class CustomSearchBar extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: 8.0),
-              child: Text('Search food', style: TextStyle(color: Colors.grey)),
+              child: Text('Search', style: TextStyle(color: Colors.grey)),
             )
           ],
         ),
