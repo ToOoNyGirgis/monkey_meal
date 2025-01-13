@@ -4,7 +4,6 @@ import 'package:flutter_rating/flutter_rating.dart';
 import 'package:lottie/lottie.dart';
 import 'package:meal_monkey/core/utils/app_colors.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
-import 'package:meal_monkey/core/widgets/custom_app_bar.dart';
 import 'package:meal_monkey/features/products/data/models/category_products_model.dart';
 
 class ProductDetailsBody extends StatelessWidget {

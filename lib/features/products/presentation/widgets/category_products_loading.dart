@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
-import 'package:meal_monkey/core/widgets/custom_app_bar.dart';
 import 'package:meal_monkey/core/widgets/custom_search_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
