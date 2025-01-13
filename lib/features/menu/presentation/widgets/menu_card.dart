@@ -5,6 +5,7 @@ import 'package:meal_monkey/core/utils/app_colors.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
@@ -14,7 +15,6 @@ class CategoryCard extends StatelessWidget {
   final int index ;
   @override
   Widget build(BuildContext context) {
-        print('${categoriesModel!.body.data[index]}');
     return GestureDetector(
       onTap: () {
     context.push(AppRouter.kCategoryProductsScreen,extra: categoriesModel!.body.data[index]);
@@ -80,7 +80,11 @@ class CategoryCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   width: 70,
                   height: 70,
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>   Shimmer.fromColors(
+                    baseColor: Colors.grey[200]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Image(image: NetworkImage(categoriesModel!.body.data[index].image)),
+                  ),
                   errorWidget: (context, url, error) => const Icon(Icons.error, color: Colors.red,size: 80,),
                 ),
               ),
