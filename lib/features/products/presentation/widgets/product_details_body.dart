@@ -14,11 +14,10 @@ class ProductDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const CustomAppBar(title: ''),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
+    return CustomScrollView(slivers: [
+      SliverToBoxAdapter(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
           child: CarouselView(
             itemSnapping: true,
             elevation: 0,
@@ -33,90 +32,92 @@ class ProductDetailsBody extends StatelessWidget {
                 .toList(),
           ),
         ),
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 2,
-                  spreadRadius: 0.1,
+      ),
+      SliverToBoxAdapter(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 2,
+                spreadRadius: 0.1,
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+            child: ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                Text(
+                  productDetails.name,
+                  style: FontsStyles.bold22,
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    StarRating(
+                      rating: 4,
+                      allowHalfRating: false,
+                      color: AppColors.kPrimaryColor,
+                      starCount: 5,
+                      borderColor:
+                          AppColors.kPrimaryColor.withValues(alpha: 50),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: '${productDetails.price} EGP ',
+                        style: FontsStyles.bold18.copyWith(
+                          color: Colors.green,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                productDetails.price != productDetails.oldPrice
+                                    ? '${productDetails.oldPrice} EGP'
+                                    : '',
+                            style: FontsStyles.regular16.copyWith(
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // Add your cart functionality here
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: AppColors.kPrimaryColor,
+                      ),
+                      tooltip: 'Add to cart',
+                    ),
+                  ],
+                ),
+                const Text(
+                  'Description: ',
+                  style: FontsStyles.bold16,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  productDetails.description,
+                  style: FontsStyles.regular16,
                 ),
               ],
             ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-              child: ListView(
-                children: [
-                  Text(
-                    productDetails.name,
-                    style: FontsStyles.bold22,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      StarRating(
-                        rating: 4,
-                        allowHalfRating: false,
-                        color: AppColors.kPrimaryColor,
-                        starCount: 5,
-                        borderColor: AppColors.kPrimaryColor.withValues(alpha: 50),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: '${productDetails.price} EGP ',
-                          style:  FontsStyles.bold18.copyWith(
-                            color: Colors.green,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: productDetails.price !=
-                                      productDetails.oldPrice
-                                  ? '${productDetails.oldPrice} EGP'
-                                  : '',
-                              style:  FontsStyles.regular16.copyWith(
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Add your cart functionality here
-                        },
-                        icon:  const Icon(
-                          Icons.shopping_cart_outlined,
-                          color: AppColors.kPrimaryColor,
-                        ),
-                        tooltip: 'Add to cart',
-                      ),
-                    ],
-                  ),
-                  const Text(
-                    'Description: ',
-                    style: FontsStyles.bold16,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    productDetails.description,
-                    style: FontsStyles.regular16,
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
-      ],
-    );
+      ),
+    ]);
   }
 }

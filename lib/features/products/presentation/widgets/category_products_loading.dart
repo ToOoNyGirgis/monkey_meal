@@ -18,7 +18,6 @@ class CategoryProductsLoadingBody extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          CustomAppBar(title: title),
           const CustomSearchBar(),
           const SizedBox(height: 20),
           Expanded(

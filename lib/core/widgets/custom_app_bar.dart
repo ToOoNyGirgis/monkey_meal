@@ -19,19 +19,9 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Visibility(
-                  visible: context.canPop(),
-                  child: IconButton(onPressed: () {
-                    Navigator.pop(context);
-                  } , icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                ),
-                Text(
-                  title,
-                  style: FontsStyles.regular25,
-                ),
-              ],
+            Text(
+              title,
+              style: FontsStyles.regular25,
             ),
             IconButton(
                 onPressed: () {},

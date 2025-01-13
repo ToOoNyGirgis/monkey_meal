@@ -9,9 +9,12 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: SafeArea(child: ProductDetailsBody(
+      appBar: AppBar(
+        title: Text(productDetails.name),
+      ),
+      body: ProductDetailsBody(
         productDetails: productDetails,
-      )),
+      ),
     );
   }
 }

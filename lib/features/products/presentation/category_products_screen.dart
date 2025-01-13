@@ -26,6 +26,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.category.name),
+      ),
       body: BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
         builder: (context, state) {
           if (state is CategoryProductsLoading) {
