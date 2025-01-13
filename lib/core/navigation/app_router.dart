@@ -16,9 +16,11 @@ import 'package:meal_monkey/features/home/presentation/main_screen.dart';
 import 'package:meal_monkey/features/menu/data/models/categories_model.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/manager/on_boarding_cubit.dart';
 import 'package:meal_monkey/features/onBoarding/presentation/on_boarding_screen.dart';
+import 'package:meal_monkey/features/products/data/models/category_products_model.dart';
 import 'package:meal_monkey/features/products/data/repos/product_repo_impl.dart';
 import 'package:meal_monkey/features/products/manager/category_products_cubit/category_products_cubit.dart';
 import 'package:meal_monkey/features/products/presentation/category_products_screen.dart';
+import 'package:meal_monkey/features/products/presentation/product_details_screen.dart';
 import 'package:meal_monkey/features/splash/splash_screen.dart';
 
 abstract class AppRouter {
@@ -105,11 +107,21 @@ abstract class AppRouter {
           );
         },
       ),
+      // ProductDetailsScreen
+      GoRoute(
+        path: kProductDetailsScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return ProductDetailsScreen(
+            productDetails: state.extra as ProductModel,
+          );
+        },
+      ),
     ],
   );
 
 
   static const String kMainScreen = '/mainScreen';
+  static const String kProductDetailsScreen = '/productDetailsScreen';
   static const String kCategoryProductsScreen = '/categoryProductsScreen';
   static const String kOnBoardingScreen = '/onBoardingScreen';
   static const String kLoginScreen = '/loginScreen';

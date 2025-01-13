@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meal_monkey/core/utils/font_styles.dart';
 import 'package:meal_monkey/features/products/data/models/category_products_model.dart';
 
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({
+class ProductBasicInfo extends StatelessWidget {
+  const ProductBasicInfo({
     super.key,
     required this.categoryProductModel,
   });

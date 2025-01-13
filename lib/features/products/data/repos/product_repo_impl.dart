@@ -27,4 +27,5 @@ class ProductRepoImpl implements ProductRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
 }
